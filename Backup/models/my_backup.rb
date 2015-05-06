@@ -16,7 +16,7 @@ Model.new(:my_backup, 'Description for my_backup') do
   # Split the backup file in to chunks of 250 megabytes
   # if the backup file size exceeds 250 megabytes
   #
-  split_into_chunks_of 250
+  split_into_chunks_of 2
   ##
   # Archive [Archive]
   #
@@ -40,17 +40,14 @@ Model.new(:my_backup, 'Description for my_backup') do
   archive :my_archive do |archive|
     # Run the `tar` command using `sudo`
     # archive.use_sudo
-    archive.add "/path/to/a/file.rb"
-    archive.add "/path/to/a/folder/"
-    archive.exclude "/path/to/a/excluded_file.rb"
-    archive.exclude "/path/to/a/excluded_folder"
+    archive.add "/Users/andrei/teme/cercetare/secure_sync/Sync"
   end
 
   ##
   # Local (Copy) [Storage]
   #
   store_with Local do |local|
-    local.path       = "~/backups/"
+    local.path       = "~/Downloads/backups/"
     local.keep       = 5
   end
 
@@ -59,7 +56,6 @@ Model.new(:my_backup, 'Description for my_backup') do
   #
   encrypt_with OpenSSL do |encryption|
     encryption.password      = "my_password"            # From String
-    encryption.password_file = "/path/to/password/file" # Or from File
     encryption.base64        = true
     encryption.salt          = true
   end
