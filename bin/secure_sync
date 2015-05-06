@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'filewatcher'
+require 'backup'
+
+Backup::Config.load
+
+FileWatcher.new("Sync/").watch do |filename|
+  puts 'file changed: ' + filename
+  Backup::Model.find_by_trigger('my_backup').first.perform!
+end
