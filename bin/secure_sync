@@ -3,7 +3,7 @@
 require 'filewatcher'
 require 'backup'
 
-Backup::Config.load
+Backup::Config.load(root_path: File.expand_path(File.dirname(__FILE__) + '/../Backup'))
 
 FileWatcher.new("Sync/").watch do |filename|
   puts 'file changed: ' + filename
